@@ -296,10 +296,6 @@ border-color: white;</string>
      </item>
     </layout>
    </widget>
-   <zorder>canvas</zorder>
-   <zorder>verticalFrame</zorder>
-   <zorder>verticalSpacer</zorder>
-   <zorder>gridLayoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -325,9 +321,10 @@ border-color: white;</string>
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionStift"/>
-    <addaction name="actionPinsel"/>
-    <addaction name="actionFarbpalette"/>
+    <addaction name="actionPen"/>
+    <addaction name="actionBrush"/>
+    <addaction name="actionInk_Pen"/>
+    <addaction name="actionColorPalette"/>
     <addaction name="separator"/>
     <addaction name="actionRectangle"/>
     <addaction name="actionTriangle"/>
@@ -341,11 +338,12 @@ border-color: white;</string>
     <enum>LeftToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
-   <addaction name="actionStift"/>
-   <addaction name="actionPinsel"/>
-   <addaction name="actionFarbpalette"/>
+   <addaction name="actionPen"/>
+   <addaction name="actionBrush"/>
+   <addaction name="actionInk_Pen"/>
+   <addaction name="actionColorPalette"/>
    <addaction name="actionRectangle"/>
    <addaction name="actionTriangle"/>
    <addaction name="actionCircle"/>
@@ -375,13 +373,16 @@ border-color: white;</string>
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionFarbpalette">
+  <action name="actionColorPalette">
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/icons/Desktop/ic_color_lens_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_color_lens_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
-    <string>Farbpalette</string>
+    <string>Color Palette</string>
+   </property>
+   <property name="toolTip">
+    <string>Color Palette</string>
    </property>
   </action>
   <action name="actionRectangle">
@@ -411,13 +412,13 @@ border-color: white;</string>
     <string>New Image</string>
    </property>
   </action>
-  <action name="actionStift">
+  <action name="actionPen">
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/icons/Desktop/ic_edit_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_edit_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
-    <string>Stift</string>
+    <string>Pen</string>
    </property>
   </action>
   <action name="actionCircle">
@@ -429,13 +430,22 @@ border-color: white;</string>
     <string>Circle</string>
    </property>
   </action>
-  <action name="actionPinsel">
+  <action name="actionBrush">
    <property name="icon">
     <iconset resource="res.qrc">
      <normaloff>:/icons/Desktop/ic_brush_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_brush_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
-    <string>Pinsel</string>
+    <string>Brush</string>
+   </property>
+  </action>
+  <action name="actionInk_Pen">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icons/Desktop/calligraphy-pen.png</normaloff>:/icons/Desktop/calligraphy-pen.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ink Pen</string>
    </property>
   </action>
  </widget>

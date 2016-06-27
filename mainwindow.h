@@ -8,12 +8,13 @@ class MainWindow : public QMainWindow
 {
    Q_OBJECT
 
-   class MyLabel*  label_;
-   my::image       image_;
-   bool            usePencil_;
-   bool            useBrush_;
-   int             toolSize_;
-   size_t          brushColor_;
+   class MyLabel*       label_;
+   my::image            image_;
+   bool                 usePencil_;
+   bool                 useBrush_;
+   bool                 useInkPen_;
+   int                  toolSize_;
+   my::image::rgba_t    brushColor_;
 
 public:
    explicit MainWindow(QWidget *parent = 0);
@@ -22,9 +23,11 @@ public:
 private slots:
    void setBrushSize(int brushSize);
 
-   void on_actionStift_triggered();
+   void on_actionPen_triggered();
 
-   void on_actionPinsel_triggered();
+   void on_actionBrush_triggered();
+
+   void on_actionInk_Pen_triggered();
 
    void on_pushButton_red_clicked();
 

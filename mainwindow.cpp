@@ -12,11 +12,16 @@ MainWindow::MainWindow(QWidget *parent) :
     , image_       { 800, 400 }
     , usePencil_   { true }
     , useBrush_    { false }
+    , useInkPen_   { false }
     , toolSize_    { 1 }
     , brushColor_  { 0xff00eeaa }
     ,  ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // Set default brushColor to colorWidget
+    ui->widget->setStyleSheet("background-color: #ff00eeaa");
+
     // Updates the pixmap shown by label from the data of our custom image
     auto update_label = [this]
     {
@@ -33,7 +38,14 @@ MainWindow::MainWindow(QWidget *parent) :
        std::cout << "mouse move: " << x << ", " << y << std::endl;
        if( toolSize_ >= 2 && usePencil_) {
            std::cout << "Draw pencil..." << std::endl;
-           for (int i = 0; i < toolSize_/2; ++i) {
+           for (int i = 0; i < toolSize_; ++i) {
+                for (int j = 0; j < toolSize_; ++j) {
+                    image_.set_pixel( x+j, y+i, brushColor_ );
+                }
+           }
+       } else if( toolSize_ >= 2 && useBrush_ ) {
+           std::cout << "Draw brush..." << std::endl;
+           for (int i = 0; i < toolSize_; ++i) {
                 image_.set_pixel( x-i, y-i, brushColor_ );
                 image_.set_pixel( x, y-i, brushColor_ );
                 image_.set_pixel( x+i, y-i, brushColor_ );
@@ -46,9 +58,9 @@ MainWindow::MainWindow(QWidget *parent) :
                 image_.set_pixel( x, y+i, brushColor_ );
                 image_.set_pixel( x+i, y+i, brushColor_ );
            }
-       } else if( toolSize_ >= 2 && useBrush_) {
-           std::cout << "Draw brush..." << std::endl;
-           for (int i = 0; i < toolSize_/2; ++i) {
+       } else if( toolSize_ >= 2 && useInkPen_ ) {
+           std::cout << "Draw Ink Pen..." << std::endl;
+           for (int i = 0; i < toolSize_; ++i) {
                 image_.set_pixel( x+i, y+i, brushColor_ );
                 image_.set_pixel( x-i, y-i, brushColor_ );
            }
@@ -81,18 +93,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionStift_triggered()
+void MainWindow::on_actionPen_triggered()
 {
     std::cout << "Using Pencil..." << std::endl;
     usePencil_ = true;
     useBrush_  = false;
+    useInkPen_  = true;
 }
 
-void MainWindow::on_actionPinsel_triggered()
+void MainWindow::on_actionBrush_triggered()
 {
     std::cout << "Using Brush..." << std::endl;
     usePencil_ = false;
     useBrush_  = true;
+    useInkPen_  = true;
+}
+
+void MainWindow::on_actionInk_Pen_triggered()
+{
+    std::cout << "Using Ink Pen..." << std::endl;
+    usePencil_ = false;
+    useBrush_  = false;
+    useInkPen_  = true;
 }
 
 void MainWindow::on_pushButton_red_clicked()
