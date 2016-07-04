@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>../../Desktop/ic_exit_to_app_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_settings_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_note_add_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_language_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_brush_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_crop_3_2_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_details_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_edit_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_radio_button_unchecked_black_24dp_2x.png</file>
-        <file>../../Desktop/ic_color_lens_black_24dp_2x.png</file>
-        <file>../../Desktop/calligraphy-pen.png</file>
+        <file>icons/calligraphy-pen.png</file>
+        <file>icons/ic_brush_black_24dp_2x.png</file>
+        <file>icons/ic_color_lens_black_24dp_2x.png</file>
+        <file>icons/ic_crop_3_2_black_24dp_2x.png</file>
+        <file>icons/ic_details_black_24dp_2x.png</file>
+        <file>icons/ic_edit_black_24dp_2x.png</file>
+        <file>icons/ic_exit_to_app_black_24dp_2x.png</file>
+        <file>icons/ic_language_black_24dp_2x.png</file>
+        <file>icons/ic_note_add_black_24dp_2x.png</file>
+        <file>icons/ic_radio_button_unchecked_black_24dp_2x.png</file>
+        <file>icons/ic_settings_black_24dp_2x.png</file>
     </qresource>
 </RCC>
