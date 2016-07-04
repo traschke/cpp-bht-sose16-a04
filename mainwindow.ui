@@ -315,6 +315,8 @@ border-color: white;</string>
     <addaction name="actionSave"/>
     <addaction name="actionSave_As"/>
     <addaction name="separator"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -367,7 +369,7 @@ border-color: white;</string>
   <action name="actionExit">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_exit_to_app_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_exit_to_app_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_exit_to_app_black_24dp_2x.png</normaloff>:/icons/icons/ic_exit_to_app_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -376,7 +378,7 @@ border-color: white;</string>
   <action name="actionColorPalette">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_color_lens_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_color_lens_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_color_lens_black_24dp_2x.png</normaloff>:/icons/icons/ic_color_lens_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Color Palette</string>
@@ -388,7 +390,7 @@ border-color: white;</string>
   <action name="actionRectangle">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_crop_3_2_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_crop_3_2_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_crop_3_2_black_24dp_2x.png</normaloff>:/icons/icons/ic_crop_3_2_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Rectangle</string>
@@ -397,7 +399,7 @@ border-color: white;</string>
   <action name="actionTriangle">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_details_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_details_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_details_black_24dp_2x.png</normaloff>:/icons/icons/ic_details_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Triangle</string>
@@ -406,7 +408,7 @@ border-color: white;</string>
   <action name="actionNew_Image">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_note_add_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_note_add_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_note_add_black_24dp_2x.png</normaloff>:/icons/icons/ic_note_add_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>New Image</string>
@@ -415,7 +417,7 @@ border-color: white;</string>
   <action name="actionPen">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_edit_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_edit_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_edit_black_24dp_2x.png</normaloff>:/icons/icons/ic_edit_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Pen</string>
@@ -424,7 +426,7 @@ border-color: white;</string>
   <action name="actionCircle">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_radio_button_unchecked_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_radio_button_unchecked_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_radio_button_unchecked_black_24dp_2x.png</normaloff>:/icons/icons/ic_radio_button_unchecked_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Circle</string>
@@ -433,7 +435,7 @@ border-color: white;</string>
   <action name="actionBrush">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/ic_brush_black_24dp_2x.png</normaloff>:/icons/Desktop/ic_brush_black_24dp_2x.png</iconset>
+     <normaloff>:/icons/icons/ic_brush_black_24dp_2x.png</normaloff>:/icons/icons/ic_brush_black_24dp_2x.png</iconset>
    </property>
    <property name="text">
     <string>Brush</string>
@@ -442,10 +444,19 @@ border-color: white;</string>
   <action name="actionInk_Pen">
    <property name="icon">
     <iconset resource="res.qrc">
-     <normaloff>:/icons/Desktop/calligraphy-pen.png</normaloff>:/icons/Desktop/calligraphy-pen.png</iconset>
+     <normaloff>:/icons/icons/calligraphy-pen.png</normaloff>:/icons/icons/calligraphy-pen.png</iconset>
    </property>
    <property name="text">
     <string>Ink Pen</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icons/icons/ic_settings_black_24dp_2x.png</normaloff>:/icons/icons/ic_settings_black_24dp_2x.png</iconset>
+   </property>
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>
