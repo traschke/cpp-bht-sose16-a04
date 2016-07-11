@@ -4,11 +4,18 @@
 #include "image.h"
 
 class Brush {
-    int brushSize_;
-    my::image::rgba_t brushColor_;
+    int                 brushType_;
+    int                 brushSize_;
+    my::image::rgba_t   brushColor_;
 public:
-    Brush(int brushSize, my::image::rgba_t brushColor);
-    void drawBrush();
+    Brush();
+    Brush(int brushSize):brushSize_(brushSize)
+    {
+    }
+    void drawBrush(my::image& image, int x, int y, my::image::rgba_t brushColor_);
+    void SetSize(int brushSize_);
+    void SetBrush(int brushType_);
+    int GetSize();
 };
 
 #endif // BRUSH_H

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "brush.h"
 #include "mylabel.h"
 #include <QPixmap>
 
@@ -10,12 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
     , label_       { new MyLabel(this) }
     , image_       { 800, 400 }
-    , usePencil_   { true }
-    , useBrush_    { false }
-    , useInkPen_   { false }
-    , toolSize_    { 1 }
+    , brushType_   { 1 }
+    , brush_       { 1 }
     , brushColor_  { 0xff00eeaa }
-    ,  ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -35,45 +33,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-       std::cout << "mouse move: " << x << ", " << y << std::endl;
-       if( toolSize_ >= 2 && usePencil_) {
-           std::cout << "Draw pencil..." << std::endl;
-           for (int i = 0; i < toolSize_; ++i) {
-                for (int j = 0; j < toolSize_; ++j) {
-                    image_.set_pixel( x+j, y+i, brushColor_ );
-                }
-           }
-       } else if( toolSize_ >= 2 && useBrush_ ) {
-           std::cout << "Draw brush..." << std::endl;
-           for (int i = 0; i < toolSize_; ++i) {
-                image_.set_pixel( x-i, y-i, brushColor_ );
-                image_.set_pixel( x, y-i, brushColor_ );
-                image_.set_pixel( x+i, y-i, brushColor_ );
-
-                image_.set_pixel( x-i, y, brushColor_ );
-                image_.set_pixel( x, y, brushColor_ );
-                image_.set_pixel( x+i, y, brushColor_ );
-
-                image_.set_pixel( x-i, y+i, brushColor_ );
-                image_.set_pixel( x, y+i, brushColor_ );
-                image_.set_pixel( x+i, y+i, brushColor_ );
-           }
-       } else if( toolSize_ >= 2 && useInkPen_ ) {
-           std::cout << "Draw Ink Pen..." << std::endl;
-           for (int i = 0; i < toolSize_; ++i) {
-                image_.set_pixel( x+i, y+i, brushColor_ );
-                image_.set_pixel( x-i, y-i, brushColor_ );
-           }
-       } else {
-           std::cout << "Set a small pixel..." << std::endl;
-           image_.set_pixel( x, y, brushColor_ );
-       }
+       brush_.drawBrush(image_, x, y, brushColor_);
        update_label();
     });
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       brush_.drawBrush(image_, x, y, brushColor_);
        update_label();
     });
 
@@ -85,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::setBrushSize(int brushSize) {
     std::cout << "Brushing with a size of: " << brushSize << std::endl;
-    toolSize_ = brushSize;
+    brush_.SetSize(brushSize);
 }
 
 MainWindow::~MainWindow()
@@ -96,25 +63,19 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionPen_triggered()
 {
     std::cout << "Using Pencil..." << std::endl;
-    usePencil_ = true;
-    useBrush_  = false;
-    useInkPen_  = true;
+    brush_.SetBrush(1);
 }
 
 void MainWindow::on_actionBrush_triggered()
 {
     std::cout << "Using Brush..." << std::endl;
-    usePencil_ = false;
-    useBrush_  = true;
-    useInkPen_  = true;
+    brush_.SetBrush(2);
 }
 
 void MainWindow::on_actionInk_Pen_triggered()
 {
     std::cout << "Using Ink Pen..." << std::endl;
-    usePencil_ = false;
-    useBrush_  = false;
-    useInkPen_  = true;
+    brush_.SetBrush(3);
 }
 
 void MainWindow::on_pushButton_red_clicked()

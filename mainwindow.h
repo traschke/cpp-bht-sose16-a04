@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "image.h"
 #include "ui_mainwindow.h"
+#include "brush.h"
 
 class MainWindow : public QMainWindow
 {
@@ -10,10 +11,8 @@ class MainWindow : public QMainWindow
 
    class MyLabel*       label_;
    my::image            image_;
-   bool                 usePencil_;
-   bool                 useBrush_;
-   bool                 useInkPen_;
-   int                  toolSize_;
+   Brush               brush_;
+   int                  brushType_;
    my::image::rgba_t    brushColor_;
 
 public:
