@@ -15,8 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \
-    brush.cpp \
-    mylabel.cpp
+    mylabel.cpp \
+    #brush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \

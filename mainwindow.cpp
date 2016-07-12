@@ -3,6 +3,7 @@
 #include "brush.h"
 #include "mylabel.h"
 #include <QPixmap>
+#include <QColorDialog>
 
 #include <iostream>
 
@@ -118,4 +119,13 @@ void MainWindow::on_pushButton_teal_clicked()
     std::cout << "Clicked on color teal..." << std::endl;
     ui->widget->setStyleSheet("background-color: #ff006058");
     brushColor_ = 0xff006058;
+}
+
+void MainWindow::on_actionColorPalette_triggered()
+{
+    std::cout << "Clicked on the nice color picker button!" << std::endl;
+    QColor tempCol = QColorDialog::getColor(QColor::fromRgba(brushColor_), this, "Pick a color");
+    std::cout << "Selected the nice color " + tempCol.name().toStdString() << std::endl;
+    ui->widget->setStyleSheet("background-color: " + tempCol.name());
+    brushColor_ = tempCol.rgba();
 }

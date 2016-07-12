@@ -40,6 +40,8 @@ private slots:
 
    void on_pushButton_teal_clicked();
 
+   void on_actionColorPalette_triggered();
+
 private:
    Ui::MainWindow *ui;
 
