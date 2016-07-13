@@ -34,21 +34,40 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-       brush_.drawBrush(image_, x, y, brushColor_);
-       update_label();
+       this->draw(x, y);
+        update_label();
     });
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
-       std::cout << "mouse down @ " << x << ", " << y << std::endl;
-       brush_.drawBrush(image_, x, y, brushColor_);
-       update_label();
+       //std::cout << "mouse down @ " << x << ", " << y << std::endl;
+      // brush_.drawBrush(image_, x, y, brushColor_);
+       //update_label();
+        draw(x, y);
+        update_label();
     });
 
     connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
 
     label_ -> setParent(ui->canvas);
     update_label();
+
+    // Initialize Settings
+    brush_.SetBrush(1);
+    setBrushSize(2);
+}
+
+void MainWindow::draw(int x, int y) {
+    std::cout << "Label: " << label_->width() << "x" << label_->height() << std::endl;
+    std::cout << "Mouse: " << x << " " << y << std::endl;
+    std::cout << "Brush: " << brush_.GetSize() << std::endl;
+    if (x >= brush_.GetSize() &&
+            x < (label_->width() - brush_.GetSize()) &&
+            y >= brush_.GetSize() &&
+            y < (label_->height() - brush_.GetSize())) {
+        std::cout << "JO" << std::endl;
+        brush_.drawBrush(image_, x, y, brushColor_);
+    }
 }
 
 void MainWindow::setBrushSize(int brushSize) {

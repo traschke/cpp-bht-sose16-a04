@@ -14,6 +14,11 @@ void Brush::SetBrush(int brushType) {
     brushType_ = brushType;
 }
 
+int Brush::GetSize()
+{
+    return brushSize_;
+}
+
 void Brush::drawBrush(my::image &image, int x, int y, my::image::rgba_t brushColor_) {
     if( brushSize_ >= 2 && brushType_ == 1) {
                std::cout << "Draw pencil..." << std::endl;
