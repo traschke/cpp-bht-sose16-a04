@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
           reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
           sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
        );
-
        label_->setPixmap(QPixmap::fromImage( qimage ));
     };
 
@@ -40,21 +39,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
-       //std::cout << "mouse down @ " << x << ", " << y << std::endl;
-      // brush_.drawBrush(image_, x, y, brushColor_);
-       //update_label();
         draw(x, y);
         update_label();
     });
 
-    connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
+    connect (label_, SIGNAL(onMouseUp(int,int)), this, SLOT(makeHistory()));
 
+    connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
     update_label();
 
     // Initialize Settings
     brush_.SetBrush(1);
     setBrushSize(2);
+}
+
+void MainWindow::makeHistory() {
+    std::cout << "MOUSE UP!" << std::endl;
 }
 
 void MainWindow::draw(int x, int y) {
