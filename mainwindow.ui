@@ -346,6 +346,7 @@ border-color: white;</string>
    <addaction name="actionBrush"/>
    <addaction name="actionInk_Pen"/>
    <addaction name="actionColorPalette"/>
+   <addaction name="actionLine"/>
    <addaction name="actionRectangle"/>
    <addaction name="actionTriangle"/>
    <addaction name="actionCircle"/>
@@ -457,6 +458,15 @@ border-color: white;</string>
    </property>
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icons/icons/ic_line_drawing_24x24.png</normaloff>:/icons/icons/ic_line_drawing_24x24.png</iconset>
+   </property>
+   <property name="text">
+    <string>Line</string>
    </property>
   </action>
  </widget>

@@ -16,6 +16,7 @@ public:
     void SetSize(int brushSize_);
     void SetBrush(int brushType_);
     int GetSize();
+    int GetBrushType();
 };
 
 #endif // BRUSH_H

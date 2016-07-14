@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     , image_       { 800, 400 }
     , brushType_   { 1 }
     , brush_       { 1 }
+    , line_        { 1 }
     , brushColor_  { 0xff00eeaa }
     , ui(new Ui::MainWindow)
 {
@@ -41,7 +42,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
-       brush_.drawBrush(image_, x, y, brushColor_);
+       if (brush_.GetBrushType() > 3) {
+            std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
+            line_.drawLine(image_, line_.lastX, line_.lastY, x, y, brushColor_);
+            line_.lastX = x;
+            line_.lastY = y;
+       } else {
+            brush_.drawBrush(image_, x, y, brushColor_);
+       }
        update_label();
     });
 
@@ -128,4 +136,10 @@ void MainWindow::on_actionColorPalette_triggered()
     std::cout << "Selected the nice color " + tempCol.name().toStdString() << std::endl;
     ui->widget->setStyleSheet("background-color: " + tempCol.name());
     brushColor_ = tempCol.rgba();
+}
+
+void MainWindow::on_actionLine_triggered()
+{
+    std::cout << "Clicked on the nice drawLine button!" << std::endl;
+    brush_.SetBrush(4);
 }

@@ -4,6 +4,7 @@
 #include "image.h"
 #include "ui_mainwindow.h"
 #include "brush.h"
+#include "line.h"
 
 class MainWindow : public QMainWindow
 {
@@ -11,7 +12,8 @@ class MainWindow : public QMainWindow
 
    class MyLabel*       label_;
    my::image            image_;
-   Brush               brush_;
+   Brush                brush_;
+   Line                 line_;
    int                  brushType_;
    my::image::rgba_t    brushColor_;
 
@@ -41,6 +43,8 @@ private slots:
    void on_pushButton_teal_clicked();
 
    void on_actionColorPalette_triggered();
+
+   void on_actionLine_triggered();
 
 private:
    Ui::MainWindow *ui;
