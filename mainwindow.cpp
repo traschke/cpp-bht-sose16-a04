@@ -29,14 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
           reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
           sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
        );
-
        label_->setPixmap(QPixmap::fromImage( qimage ));
     };
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-       brush_.drawBrush(image_, x, y, brushColor_);
-       update_label();
+       this->draw(x, y);
+        update_label();
     });
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
@@ -51,12 +50,38 @@ MainWindow::MainWindow(QWidget *parent) :
             brush_.drawBrush(image_, x, y, brushColor_);
        }
        update_label();
+       /* Habe dein draw mal auskomentiert wegen merge und so.
+        draw(x, y);
+        update_label();
+        */
     });
 
-    connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
+    connect (label_, SIGNAL(onMouseUp(int,int)), this, SLOT(makeHistory()));
 
+    connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
     update_label();
+
+    // Initialize Settings
+    brush_.SetBrush(1);
+    setBrushSize(2);
+}
+
+void MainWindow::makeHistory() {
+    std::cout << "MOUSE UP!" << std::endl;
+}
+
+void MainWindow::draw(int x, int y) {
+    std::cout << "Label: " << label_->width() << "x" << label_->height() << std::endl;
+    std::cout << "Mouse: " << x << " " << y << std::endl;
+    std::cout << "Brush: " << brush_.GetSize() << std::endl;
+    if (x >= brush_.GetSize() &&
+            x < (label_->width() - brush_.GetSize()) &&
+            y >= brush_.GetSize() &&
+            y < (label_->height() - brush_.GetSize())) {
+        std::cout << "JO" << std::endl;
+        brush_.drawBrush(image_, x, y, brushColor_);
+    }
 }
 
 void MainWindow::setBrushSize(int brushSize) {

@@ -22,6 +22,10 @@ public:
    ~MainWindow();
 
 private slots:
+   void makeHistory();
+
+   void draw(int x, int y);
+
    void setBrushSize(int brushSize);
 
    void on_actionPen_triggered();

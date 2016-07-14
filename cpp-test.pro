@@ -17,13 +17,21 @@ SOURCES += main.cpp\
     image.cpp \
     mylabel.cpp \
     brush.cpp \
+<<<<<<< HEAD
     line.cpp
+=======
+    history.cpp
+>>>>>>> 0491fa9ceea375b9edf4f0a1dc94800053e4bc60
 
 HEADERS  += mainwindow.h \
     image.h \
     mylabel.h \
     brush.h \
+<<<<<<< HEAD
     line.h
+=======
+    history.h
+>>>>>>> 0491fa9ceea375b9edf4f0a1dc94800053e4bc60
 
 FORMS    += mainwindow.ui
 
