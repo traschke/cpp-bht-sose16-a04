@@ -58,6 +58,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect (label_, SIGNAL(onMouseUp(int,int)), this, SLOT(makeHistory()));
 
+    connect (ui->actionClear_Background, &QAction::triggered, this, &MainWindow::on_actionBackground_triggered);
+
     connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
     update_label();
@@ -65,6 +67,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize Settings
     brush_.SetBrush(1);
     setBrushSize(2);
+}
+
+void MainWindow::update_label()
+{
+   auto qimage = QImage(
+      reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
+      sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
+   );
+   label_->setPixmap(QPixmap::fromImage( qimage ));
 }
 
 void MainWindow::makeHistory() {
@@ -167,4 +178,10 @@ void MainWindow::on_actionLine_triggered()
 {
     std::cout << "Clicked on the nice drawLine button!" << std::endl;
     brush_.SetBrush(4);
+}
+
+void MainWindow::on_actionBackground_triggered() {
+    std::cout << "Reset background" << std::endl;
+    image_.ClearBackground(brushColor_);
+    update_label();
 }

@@ -24,6 +24,7 @@ namespace my
       auto height() const -> size_t          { return height_; }
       auto data() const   -> rgba_t const*   { return data_.data(); }
 
+      void ClearBackground(int color);
    private:
 
       size_t  width_;

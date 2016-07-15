@@ -303,7 +303,7 @@ border-color: white;</string>
      <x>0</x>
      <y>0</y>
      <width>718</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -331,6 +331,7 @@ border-color: white;</string>
     <addaction name="actionRectangle"/>
     <addaction name="actionTriangle"/>
     <addaction name="actionCircle"/>
+    <addaction name="actionClear_Background"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
@@ -350,6 +351,7 @@ border-color: white;</string>
    <addaction name="actionRectangle"/>
    <addaction name="actionTriangle"/>
    <addaction name="actionCircle"/>
+   <addaction name="actionClear_Background"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -467,6 +469,11 @@ border-color: white;</string>
    </property>
    <property name="text">
     <string>Line</string>
+   </property>
+  </action>
+  <action name="actionClear_Background">
+   <property name="text">
+    <string>Clear Background</string>
    </property>
   </action>
  </widget>

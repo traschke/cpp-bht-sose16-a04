@@ -8,4 +8,8 @@ image::image( size_t width, size_t height )
 , data_    ( width * height, 0xff123456 )
 {}
 
+void image::ClearBackground(int color) {
+    fill(data_.begin(), data_.end(), color);
+}
+
 }

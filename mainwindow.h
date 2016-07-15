@@ -50,7 +50,9 @@ private slots:
 
    void on_actionLine_triggered();
 
+   void on_actionBackground_triggered();
+
 private:
    Ui::MainWindow *ui;
-
+   void update_label();
 };
