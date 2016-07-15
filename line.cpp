@@ -11,41 +11,49 @@ Line::Line(int size){
     lastY = 0;
 }
 
-void Line::drawLine(my::image &image, int x1, int y1, int x2, int y2, my::image::rgba_t brushColor_)
+void Line::drawLine(my::image &image, int x1, int y1, my::image::rgba_t brushColor_)
 {
     // Bresenham's line algorithm
     // Draw a line from the last position clicked to the current position.
-    const bool steep = (std::abs(y2 - y1) > std::abs(x2 - x1));
-    if(steep) {
-        std::swap(x1, y1);
-        std::swap(x2, y2);
-    }
+    const int dx = std::abs(lastX - x1);
+    const int dy = std::abs(lastY - y1);
 
-    if(x1 > x2) {
-        std::swap(x1, x2);
-        std::swap(y1, y2);
-    }
+    const int ix = (x1 > lastX) ? -1 : 1;
+    const int iy = (y1 > lastY) ? -1 : 1;
 
-    const int dx = std::abs(x2 - x1);
-    const int dy = std::abs(y2 - y1);
+    int tempX = x1;
+    int tempY = y1;
 
-    int error = dx / 2;
-    const int ystep = (y1 - y2) ? 1 : -1;
-    int y = y1;
 
-    const int maxX = x2;
+    if (dx >= dy) {
+        int error = dy -(dx / 2);
 
-    for(int x = x1; x < maxX; x++) {
-        if(steep) {
-            image.set_pixel(y, x, brushColor_);
-        } else {
-            image.set_pixel(x, y, brushColor_);
+        while (x1 != lastX) {
+            if ((error >= 0) && (error || (ix > 0))) {
+                error -= dx;
+                y1 += iy;
+            }
+
+            error += dy;
+            x1 += ix;
+
+            image.set_pixel(x1, y1, brushColor_);
         }
+    } else {
+        int error = dx - (dy / 2);
+         while (y1 != lastY) {
+             if ((error >= 0) && (error || (iy < 0))) {
+                 error -= dy;
+                 x1 += ix;
+             }
 
-        error -= dy;
-        if(error < 0) {
-            y += ystep;
-            error += dx;
-        }
+             error += dx;
+             y1 += iy;
+
+             image.set_pixel(x1, y1, brushColor_);
+         }
     }
+
+    lastX = tempX;
+    lastY = tempY;
 }

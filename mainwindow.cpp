@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
        if (brush_.GetBrushType() > 3) {
             std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
-            line_.drawLine(image_, line_.lastX, line_.lastY, x, y, brushColor_);
+            line_.drawLine(image_, x, y, brushColor_);
             line_.lastX = x;
             line_.lastY = y;
        } else {

@@ -2,6 +2,7 @@
 #define LINE_H
 
 #include "image.h"
+#include <cmath>
 
 class Line {
 public:
@@ -10,7 +11,7 @@ public:
     int lastY;
     Line();
     Line(int size);
-    void drawLine(my::image& image, int x1, int x2, int y1, int y2, my::image::rgba_t brushColor_);
+    void drawLine(my::image& image, int x1, int y1, my::image::rgba_t brushColor_);
 };
 
 #endif // LINE_H
