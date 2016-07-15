@@ -4,6 +4,7 @@
 #include "mylabel.h"
 #include <QPixmap>
 #include <QColorDialog>
+#include <QFileDialog>
 
 #include <iostream>
 
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (label_, SIGNAL(onMouseUp(int,int)), this, SLOT(makeHistory()));
 
     connect (ui->actionClear_Background, &QAction::triggered, this, &MainWindow::on_actionBackground_triggered);
+    connect (ui->actionSave, &QAction::triggered, this, &MainWindow::SaveToFile);
 
     connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
@@ -184,4 +186,12 @@ void MainWindow::on_actionBackground_triggered() {
     std::cout << "Reset background" << std::endl;
     image_.ClearBackground(brushColor_);
     update_label();
+}
+
+void MainWindow::SaveToFile(){
+    QString name = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                           "untitled.jpg",
+                                           tr("Images (*.png *.xpm *.jpg)"));
+    label_->pixmap()->save(name,0, 100);
+
 }
