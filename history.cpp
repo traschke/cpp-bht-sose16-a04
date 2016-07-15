@@ -3,9 +3,14 @@
 
 namespace my {
 
-history::history() : imageHistory(0)
+history::history(image img) : imageHistory(0)
 {
+    commit(img);
+}
 
+image& history::current()
+{
+    return imageHistory.back();
 }
 
 void history::commit(image img)
@@ -14,15 +19,12 @@ void history::commit(image img)
     std::cout << "Image History Commit: #" << imageHistory.size() << std::endl;
 }
 
-image history::Undo()
+void history::Undo()
 {
-    if(imageHistory.size() > 1) {
-        image tempImage = imageHistory[imageHistory.size() - 1];
+    if(imageHistory.size() > 2) {
         imageHistory.pop_back();
-        std::cout << "Image History Undo: #" << imageHistory.size() << std::endl;
-        return tempImage;
     }
-}
 
+}
 
 }

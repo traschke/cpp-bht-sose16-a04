@@ -10,10 +10,11 @@ class history {
 private:
     std::vector<image> imageHistory;
 public:
-    history();
+    history(image img);
+    image& current();
 
     void commit(image img);
-    image Undo();
+    void Undo();
 };
 
 }

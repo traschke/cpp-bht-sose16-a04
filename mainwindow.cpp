@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "brush.h"
 #include "mylabel.h"
+#include "history.h"
 #include <QPixmap>
 #include <QColorDialog>
 #include <QFileDialog>
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     , line_        { 1 }
     , brushColor_  { 0xff00eeaa }
     , ui(new Ui::MainWindow)
+    , history_(image_)
 {
     ui->setupUi(this);
 
@@ -28,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent) :
     auto update_label = [this]
     {
        auto qimage = QImage(
-          reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
-          sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
+          reinterpret_cast<uchar const*>(history_.current().data()), history_.current().width(), history_.current().height(),
+          sizeof(my::image::rgba_t)*history_.current().width(), QImage::Format_ARGB32
        );
        label_->setPixmap(QPixmap::fromImage( qimage ));
     };
@@ -42,14 +44,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
+        this->makeHistory();
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
        if (brush_.GetBrushType() > 3) {
             std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
-            line_.drawLine(image_, x, y, brushColor_);
+            line_.drawLine(history_.current(), x, y, brushColor_);
             line_.lastX = x;
             line_.lastY = y;
        } else {
-            brush_.drawBrush(image_, x, y, brushColor_);
+            brush_.drawBrush(history_.current(), x, y, brushColor_);
        }
        update_label();
        /* Habe dein draw mal auskomentiert wegen merge und so.
@@ -58,11 +61,10 @@ MainWindow::MainWindow(QWidget *parent) :
         */
     });
 
-    connect (label_, SIGNAL(onMouseUp(int,int)), this, SLOT(makeHistory()));
-
     connect (ui->actionClear_Background, &QAction::triggered, this, &MainWindow::on_actionBackground_triggered);
     connect (ui->actionSave, &QAction::triggered, this, &MainWindow::SaveToFile);
     connect (ui->actionOpen, &QAction::triggered, this, &MainWindow::OpenFromFile);
+    connect (ui->actionUndo, &QAction::triggered, this, &MainWindow::Undo);
 
     connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
@@ -71,19 +73,20 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize Settings
     brush_.SetBrush(1);
     setBrushSize(2);
+    history_.commit(history_.current());
 }
 
 void MainWindow::update_label()
 {
    auto qimage = QImage(
-      reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
-      sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
+      reinterpret_cast<uchar const*>(history_.current().data()), history_.current().width(), history_.current().height(),
+      sizeof(my::image::rgba_t)*history_.current().width(), QImage::Format_ARGB32
    );
    label_->setPixmap(QPixmap::fromImage( qimage ));
 }
 
 void MainWindow::makeHistory() {
-    std::cout << "MOUSE UP!" << std::endl;
+    history_.commit(history_.current());
 }
 
 void MainWindow::draw(int x, int y) {
@@ -95,7 +98,7 @@ void MainWindow::draw(int x, int y) {
             y >= brush_.GetSize() &&
             y < (label_->height() - brush_.GetSize())) {
         std::cout << "JO" << std::endl;
-        brush_.drawBrush(image_, x, y, brushColor_);
+        brush_.drawBrush(history_.current(), x, y, brushColor_);
     }
 }
 
@@ -185,8 +188,9 @@ void MainWindow::on_actionLine_triggered()
 }
 
 void MainWindow::on_actionBackground_triggered() {
+    history_.commit(history_.current());
     std::cout << "Reset background" << std::endl;
-    image_.ClearBackground(brushColor_);
+    history_.current().ClearBackground(brushColor_);
     update_label();
 }
 
@@ -204,8 +208,13 @@ void MainWindow::OpenFromFile(){
     QImageReader reader(fileName);
     QImage img = reader.read();
 
-    image_.LoadData(img);
+    history_.current().LoadData(img);
 
     label_->resize(img.width(), img.height());
+    update_label();
+}
+
+void MainWindow::Undo() {
+    history_.Undo();
     update_label();
 }

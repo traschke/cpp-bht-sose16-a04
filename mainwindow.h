@@ -5,6 +5,7 @@
 #include "ui_mainwindow.h"
 #include "brush.h"
 #include "line.h"
+#include "history.h"
 
 class MainWindow : public QMainWindow
 {
@@ -16,6 +17,8 @@ class MainWindow : public QMainWindow
    Line                 line_;
    int                  brushType_;
    my::image::rgba_t    brushColor_;
+   my::history          history_;
+
 
 public:
    explicit MainWindow(QWidget *parent = 0);
@@ -57,4 +60,5 @@ private:
    void update_label();
    void SaveToFile();
    void OpenFromFile();
+   void Undo();
 };
