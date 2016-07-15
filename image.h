@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <QImage>
 
 namespace my
 {
@@ -25,6 +26,8 @@ namespace my
       auto data() const   -> rgba_t const*   { return data_.data(); }
 
       void ClearBackground(int color);
+
+      void LoadData(QImage img);
    private:
 
       size_t  width_;

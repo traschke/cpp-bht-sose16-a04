@@ -56,4 +56,5 @@ private:
    Ui::MainWindow *ui;
    void update_label();
    void SaveToFile();
+   void OpenFromFile();
 };

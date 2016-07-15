@@ -5,13 +5,14 @@
 #include <QPixmap>
 #include <QColorDialog>
 #include <QFileDialog>
+#include <QImageReader>
 
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
     , label_       { new MyLabel(this) }
-    , image_       { 800, 400 }
+    , image_       { 580, 340 }
     , brushType_   { 1 }
     , brush_       { 1 }
     , line_        { 1 }
@@ -61,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect (ui->actionClear_Background, &QAction::triggered, this, &MainWindow::on_actionBackground_triggered);
     connect (ui->actionSave, &QAction::triggered, this, &MainWindow::SaveToFile);
+    connect (ui->actionOpen, &QAction::triggered, this, &MainWindow::OpenFromFile);
 
     connect( ui->verticalSlider, SIGNAL(valueChanged(int)), this, SLOT(setBrushSize(int)));
     label_ -> setParent(ui->canvas);
@@ -194,4 +196,16 @@ void MainWindow::SaveToFile(){
                                            tr("Images (*.png *.xpm *.jpg)"));
     label_->pixmap()->save(name,0, 100);
 
+}
+
+void MainWindow::OpenFromFile(){
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Image"), "", tr("Image Files (*.png *.jpg *.bmp)"));
+    QImageReader reader(fileName);
+    QImage img = reader.read();
+
+    image_.LoadData(img);
+
+    label_->resize(img.width(), img.height());
+    update_label();
 }
