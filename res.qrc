@@ -12,5 +12,7 @@
         <file>icons/ic_radio_button_unchecked_black_24dp_2x.png</file>
         <file>icons/ic_settings_black_24dp_2x.png</file>
         <file>icons/ic_line_drawing_24x24.png</file>
+        <file>icons/ic_paint_bucket.png</file>
+        <file>icons/ic_undo_arrow.png</file>
     </qresource>
 </RCC>
