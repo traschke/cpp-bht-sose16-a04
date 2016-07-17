@@ -40,50 +40,60 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-        std::cout << "mouse down @ " << x << ", " << y << std::endl;
-        if (brush_.GetBrushType() == 4) {
-             std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
-             line_.drawLine(history_.current(), x, y, brushColor_);
-             line_.lastX = x;
-             line_.lastY = y;
-        } else if (brush_.GetBrushType() == 5) {
-             circle_.radius = brush_.GetSize();
-             circle_.drawCircle(history_.current(), x, y, brushColor_);
-        } else if (brush_.GetBrushType() == 6) {
-             square_.a = brush_.GetSize();
-             square_.drawSquare(history_.current(), x, y, brushColor_);
-        } else if (brush_.GetBrushType() == 7) {
-            triangle_.tileLength = brush_.GetSize()*2;
-            triangle_.drawTriangle(history_.current(), x, y, brushColor_);
-       } else {
-             brush_.drawBrush(history_.current(), x, y, brushColor_);
-             this->draw(x, y);
+        if (x >= brush_.GetSize() &&
+                x < (label_->width() - brush_.GetSize()) &&
+                y >= brush_.GetSize() &&
+                y < (label_->height() - brush_.GetSize())) {
+            std::cout << "mouse down @ " << x << ", " << y << std::endl;
+            if (brush_.GetBrushType() == 4) {
+                 std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
+                 line_.drawLine(history_.current(), x, y, brushColor_);
+                 line_.lastX = x;
+                 line_.lastY = y;
+            } else if (brush_.GetBrushType() == 5) {
+                 circle_.radius = brush_.GetSize();
+                 circle_.drawCircle(history_.current(), x, y, brushColor_);
+            } else if (brush_.GetBrushType() == 6) {
+                 square_.a = brush_.GetSize();
+                 square_.drawSquare(history_.current(), x, y, brushColor_);
+            } else if (brush_.GetBrushType() == 7) {
+                triangle_.tileLength = brush_.GetSize()*2;
+                triangle_.drawTriangle(history_.current(), x, y, brushColor_);
+           } else {
+                 brush_.drawBrush(history_.current(), x, y, brushColor_);
+                 this->draw(x, y);
+            }
+            update_label();
         }
-        update_label();
     });
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
+        if (x >= brush_.GetSize() &&
+                x < (label_->width() - brush_.GetSize()) &&
+                y >= brush_.GetSize() &&
+                y < (label_->height() - brush_.GetSize())) {
         this->makeHistory();
-       std::cout << "mouse down @ " << x << ", " << y << std::endl;
-       if (brush_.GetBrushType() == 4) {
-            std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
-            line_.drawLine(history_.current(), x, y, brushColor_);
-            line_.lastX = x;
-            line_.lastY = y;
-       } else if (brush_.GetBrushType() == 5) {
-            circle_.radius = brush_.GetSize();
-            circle_.drawCircle(history_.current(), x, y, brushColor_);
-       } else if (brush_.GetBrushType() == 6) {
-            square_.a = brush_.GetSize();
-            square_.drawSquare(history_.current(), x, y, brushColor_);
-       } else if (brush_.GetBrushType() == 7) {
-           triangle_.tileLength = brush_.GetSize()*2;
-           triangle_.drawTriangle(history_.current(), x, y, brushColor_);
-      } else {
-            brush_.drawBrush(history_.current(), x, y, brushColor_);
-       }
-       update_label();
+           std::cout << "mouse down @ " << x << ", " << y << std::endl;
+           if (brush_.GetBrushType() == 4) {
+                std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
+                line_.drawLine(history_.current(), x, y, brushColor_);
+                line_.lastX = x;
+                line_.lastY = y;
+           } else if (brush_.GetBrushType() == 5) {
+                circle_.radius = brush_.GetSize();
+                circle_.drawCircle(history_.current(), x, y, brushColor_);
+           } else if (brush_.GetBrushType() == 6) {
+                square_.a = brush_.GetSize();
+                square_.drawSquare(history_.current(), x, y, brushColor_);
+           } else if (brush_.GetBrushType() == 7) {
+               triangle_.tileLength = brush_.GetSize()*2;
+               triangle_.drawTriangle(history_.current(), x, y, brushColor_);
+          } else {
+                brush_.drawBrush(history_.current(), x, y, brushColor_);
+           }
+           update_label();
+        }
        /* Habe dein draw mal auskomentiert wegen merge und so.
         draw(x, y);
         update_label();
