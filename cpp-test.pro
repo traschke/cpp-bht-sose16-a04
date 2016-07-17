@@ -18,14 +18,20 @@ SOURCES += main.cpp\
     mylabel.cpp \
     brush.cpp \
     line.cpp \
-    history.cpp
+    history.cpp \
+    circle.cpp \
+    square.cpp \
+    triangle.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
     mylabel.h \
     brush.h \
     line.h \
-    history.h
+    history.h \
+    circle.h \
+    square.h \
+    triangle.h
 
 FORMS    += mainwindow.ui
 

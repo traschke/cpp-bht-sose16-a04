@@ -6,6 +6,9 @@
 #include "brush.h"
 #include "line.h"
 #include "history.h"
+#include "circle.h"
+#include "square.h"
+#include "triangle.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,6 +18,9 @@ class MainWindow : public QMainWindow
    my::image            image_;
    Brush                brush_;
    Line                 line_;
+   Circle               circle_;
+   Square               square_;
+   Triangle             triangle_;
    int                  brushType_;
    my::image::rgba_t    brushColor_;
    my::history          history_;
@@ -54,6 +60,12 @@ private slots:
    void on_actionLine_triggered();
 
    void on_actionBackground_triggered();
+
+   void on_actionCircle_triggered();
+
+   void on_actionRectangle_triggered();
+
+   void on_actionTriangle_triggered();
 
 private:
    Ui::MainWindow *ui;

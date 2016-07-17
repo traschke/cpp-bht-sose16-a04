@@ -303,7 +303,7 @@ border-color: white;</string>
      <x>0</x>
      <y>0</y>
      <width>718</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -479,11 +479,19 @@ border-color: white;</string>
    </property>
   </action>
   <action name="actionClear_Background">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icons/icons/ic_paint_bucket.png</normaloff>:/icons/icons/ic_paint_bucket.png</iconset>
+   </property>
    <property name="text">
     <string>Clear Background</string>
    </property>
   </action>
   <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/icons/icons/ic_undo_arrow.png</normaloff>:/icons/icons/ic_undo_arrow.png</iconset>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>

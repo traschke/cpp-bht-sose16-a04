@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     , brushType_   { 1 }
     , brush_       { 1 }
     , line_        { 1 }
+    , circle_      { }
+    , square_      { }
     , brushColor_  { 0xff00eeaa }
     , ui(new Ui::MainWindow)
     , history_(image_)
@@ -38,7 +40,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-       this->draw(x, y);
+        std::cout << "mouse down @ " << x << ", " << y << std::endl;
+        if (brush_.GetBrushType() == 4) {
+             std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
+             line_.drawLine(history_.current(), x, y, brushColor_);
+             line_.lastX = x;
+             line_.lastY = y;
+        } else if (brush_.GetBrushType() == 5) {
+             circle_.radius = brush_.GetSize();
+             circle_.drawCircle(history_.current(), x, y, brushColor_);
+        } else if (brush_.GetBrushType() == 6) {
+             square_.a = brush_.GetSize();
+             square_.drawSquare(history_.current(), x, y, brushColor_);
+        } else if (brush_.GetBrushType() == 7) {
+            triangle_.tileLength = brush_.GetSize()*2;
+            triangle_.drawTriangle(history_.current(), x, y, brushColor_);
+       } else {
+             brush_.drawBrush(history_.current(), x, y, brushColor_);
+             this->draw(x, y);
+        }
         update_label();
     });
 
@@ -46,12 +66,21 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         this->makeHistory();
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
-       if (brush_.GetBrushType() > 3) {
+       if (brush_.GetBrushType() == 4) {
             std::cout << "mouse down @FOR line " << x << ", " << y << std::endl;
             line_.drawLine(history_.current(), x, y, brushColor_);
             line_.lastX = x;
             line_.lastY = y;
-       } else {
+       } else if (brush_.GetBrushType() == 5) {
+            circle_.radius = brush_.GetSize();
+            circle_.drawCircle(history_.current(), x, y, brushColor_);
+       } else if (brush_.GetBrushType() == 6) {
+            square_.a = brush_.GetSize();
+            square_.drawSquare(history_.current(), x, y, brushColor_);
+       } else if (brush_.GetBrushType() == 7) {
+           triangle_.tileLength = brush_.GetSize()*2;
+           triangle_.drawTriangle(history_.current(), x, y, brushColor_);
+      } else {
             brush_.drawBrush(history_.current(), x, y, brushColor_);
        }
        update_label();
@@ -217,4 +246,22 @@ void MainWindow::OpenFromFile(){
 void MainWindow::Undo() {
     history_.Undo();
     update_label();
+}
+
+void MainWindow::on_actionCircle_triggered()
+{
+    std::cout << "Clicked on the circle button, now drawing nice circle!" << std::endl;
+    brush_.SetBrush(5);
+}
+
+void MainWindow::on_actionRectangle_triggered()
+{
+    std::cout << "Clicked on the square button, now drawing nice square!" << std::endl;
+    brush_.SetBrush(6);
+}
+
+void MainWindow::on_actionTriangle_triggered()
+{
+    std::cout << "Clicked on the triangle button, now drawing nice triangle!" << std::endl;
+    brush_.SetBrush(7);
 }
